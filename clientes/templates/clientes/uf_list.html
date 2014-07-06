@@ -1,0 +1,11 @@
+<h1>UF</h1>
+<ul>
+    {% for uf in object_list %}
+    <li>{{ uf.nome }}  :
+    <a href="{% url "uf_edit" uf.id %}">edit</a>
+    <a href="{% url "uf_delete" uf.id %}">delete</a>
+    </li>
+    {% endfor %}
+</ul>
+
+<a href="{% url "uf_new" %}">New</a>

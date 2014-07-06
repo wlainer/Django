@@ -1,0 +1,132 @@
+http://www.noobslab.com/2012/04/important-things-to-do-after-install_26.html
+
+Fix network ubuntu 14.04
+   echo "options iwlwifi bt_coex_active=N swcrypto=1 11n_disable=1" | sudo tee /etc/modprobe.d/iwlwifi.conf
+
+Indicators
+   classical menu indicator	http://www.liberiangeek.net/2012/05/install-classic-menu-indicator-in-ubuntu-12-04-precise-pangolin/
+   brightness indicator		http://www.noobslab.com/2013/12/best-useful-indicators-collection-for.html
+   sound switcher		http://www.webupd8.org/2014/02/sound-switcher-ubuntu-indicator.html
+
+Programs
+   sublime
+   uget
+   qbitorrent
+   rss
+   clementine
+   calibre
+   postgres
+   skype
+   eclipse
+   pycharm
+   pinta
+   gimp
+   variety
+
+Exemplos comandos
+   command youtube-dl
+	youtube-dl -ciw -o '/home/wlainer/Videos/%(title)s.%(ext)s' -f 22/18/35/34 -a diversos
+
+   extrair video
+	ffmpeg -acodec copy -vcodec copy -ss 00:03:07 -t 00:09:22 -i ORIGINALFILE.mp4 OUTFILE-1.mp4
+
+
+Things to do after install ubuntu
+
+   * scroll bar overlay
+	12.04	gsettings set org.gnome.desktop.interface ubuntu-overlay-scrollbars false
+	14.04	gsettings set com.canonical.desktop.interface scrollbar-mode normal
+
+   * turn off logon sound
+	sudo gedit /usr/share/glib-2.0/schemas/50_unity-greeter.gschema.override
+	copy into file
+	   [com.canonical.unity-greeter]play-ready-sound = false
+
+   * lock folder
+	http://www.liberiangeek.net/2012/04/create-a-private-password-protected-folder-in-ubuntu-11-10-12-04/
+
+   * Enable hibernate
+	12.04:	sudo gedit /var/lib/polkit-1/localauthority/50-local.d/hibernate.pkla
+		copy into file
+		   [Re-enable Hibernate]
+		   Identity=unix-user:*
+		   Action=org.freedesktop.upower.hibernate
+		   ResultActive=yes
+
+	14.04: http://ubuntuhandbook.org/index.php/2014/04/enable-hibernate-ubuntu-14-04/
+
+   * encrypt usb device
+	http://www.liberiangeek.net/2012/04/encrypt-your-external-usb-drives-in-ubuntu-12-04-precise-pangolin/
+
+   * disabel global menu
+	sudo apt-get autoremove appmenu-gtk appmenu-gtk3 appmenu-qt
+
+   * unsettings
+	http://www.liberiangeek.net/2012/04/easily-configure-ubuntu-12-04-precise-pangolin-with-unsettings/
+
+   * show data and time on the clock
+	gsettings set com.canonical.indicator.datetime show-date true
+
+   * backup whole computer
+	http://www.liberiangeek.net/2012/07/backup-restore-your-whole-ubuntu-computer-using-remastersys/
+
+   * bitdefender
+	http://www.liberiangeek.net/2012/07/install-bitdefender-from-its-software-repository-in-ubuntu-12-04/
+
+   * remove white dots
+	sudo xhost +SI:localuser:lightdm
+	sudo su lightdm -s /bin/bash
+	gsettings set com.canonical.unity-greeter draw-grid false
+
+   * gnome advanced settings
+	sudo apt-get install gnome-tweak-tool
+
+   * Ubuntu tweak
+	sudo add-apt-repository ppa:tualatrix/ppa
+	sudo apt-get update
+	sudo apt-get install ubuntu-tweak
+
+   * recent notifications
+ 	sudo add-apt-repository ppa:jconti/recent-notifications
+	sudo apt-get update
+	sudo apt-get install indicator-notifications
+
+   * compression / decompress tools
+	sudo apt-get install p7zip-rar p7zip-full unace unrar zip unzip sharutils rar uudeview mpack arj cabextract file-roller
+
+   * backlight
+	sudo apt-get install xbacklight
+	startup command
+	   xbacklight -set 15
+
+   * autumount disk
+	sudo apt-get install udisks
+	startup command	
+	   /usr/bin/udisks --mount /dev/disk/by-uuid/7E14FF8D14FF4725
+
+   * configure notifications
+	http://www.webupd8.org/2012/06/closable-movable-notifyosd.html
+
+   * minimize on click
+	http://itsfoss.com/enable-minimize-click-ubuntu-1404/
+
+   * ambientes virtuais python
+	http://hltbra.blogspot.com.br/2010/05/gerenciando-ambientes-virtuais-e.html
+
+   * configurar joystick
+	sudo apt-get install jstest-gtk
+	http://hltbra.blogspot.com.br/2010/05/gerenciando-ambientes-virtuais-e.html
+
+   * transparencia menus
+	http://jwigley.com/2012/04/27/making-ubuntu-unity-look-beautiful-by-enabling-transparency/
+
+   * nemo ubuntu 14.04
+	http://www.webupd8.org/2013/10/install-nemo-with-unity-patches-and.html
+
+   * quiterss
+	sudo add-apt-repository ppa:quiterss/quiterss
+	sudo apt-get update
+	sudo apt-get install quiterss
+
+   * integrate keepass firefox
+	http://www.sysads.co.uk/2014/05/integrate-keepass-2-firefox-keefox-ubuntu-14-04-13-10/
