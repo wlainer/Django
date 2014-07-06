@@ -1,0 +1,10 @@
+db.sqlite
+*.log
+*.pot
+*.pyc
+dicom/media
+dicom/static
+*.ini
+
+bower_components
+node_modules
