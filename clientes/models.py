@@ -20,7 +20,7 @@ class Cidade(models.Model):
 class Cliente(models.Model):
     nome = models.CharField(max_length=255)
     telefone = models.CharField(max_length=255, null=True, blank=True)
-    # endereco = models.CharField(max_length=255, null=True, blank=True)
+    #  endereco = models.CharField(max_length=255, null=True, blank=True)
     cidade = models.ForeignKey(Cidade)
     email = models.EmailField(null=True, blank=True)
     obs = models.CharField(max_length=255, null=True, blank=True)
