@@ -2,10 +2,10 @@
 <ul>
     {% for configuracao in object_list %}
     <li>{{ configuracao.servidor }}  : {{ configuracao.porta }}
-    <a href="{% url "configuracao_edit" configuracao.id %}">Edit</a>
-    <a href="{% url "configuracao_delete" configuracao.id %}">delete</a>
+    <a href="{% url "clientes:configuracao_edit" configuracao.id %}">Edit</a>
+    <a href="{% url "clientes:configuracao_delete" configuracao.id %}">delete</a>
     </li>
     {% endfor %}
 </ul>
 
-<a href="{% url "configuracao_new" %}">New</a>
+<a href="{% url "clientes:configuracao_new" %}">New</a>

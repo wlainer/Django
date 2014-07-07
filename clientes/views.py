@@ -29,7 +29,7 @@ def uf_create(request):
     form = UFForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return redirect('uf_list')
+        return redirect('clientes:uf_list')
     return render(request, template_name, {'form': form})
 
 
@@ -39,7 +39,7 @@ def uf_update(request, pk):
     form = UFForm(request.POST or None, instance=object)
     if form.is_valid():
         form.save()
-        return redirect('uf_list')
+        return redirect('clientes:uf_list')
     return render(request, template_name, {'form': form})
 
 
@@ -48,7 +48,7 @@ def uf_delete(request, pk):
     object = get_object_or_404(UF, pk=pk)
     if request.method == 'POST':
         object.delete()
-        return redirect('uf_list')
+        return redirect('clientes:uf_list')
     return render(request, template_name, {'object': object})
 
 
@@ -73,7 +73,7 @@ def cidade_create(request):
     form = CidadeForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return redirect('cidade_list')
+        return redirect('clientes:cidade_list')
     return render(request, template_name, {'form': form})
 
 
@@ -83,7 +83,7 @@ def cidade_update(request, pk):
     form = CidadeForm(request.POST or None, instance=object)
     if form.is_valid():
         form.save()
-        return redirect('cidade_list')
+        return redirect('clientes:cidade_list')
     return render(request, template_name, {'form': form})
 
 
@@ -92,7 +92,7 @@ def cidade_delete(request, pk):
     object = get_object_or_404(Cidade, pk=pk)
     if request.method == 'POST':
         object.delete()
-        return redirect('cidade_list')
+        return redirect('clientes:cidade_list')
     return render(request, template_name, {'object': object})
 
 
@@ -121,7 +121,7 @@ def cliente_create(request):
     form = ClienteForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return redirect('cliente_list')
+        return redirect('clientes:cliente_list')
     return render(request, template_name, {'form': form, 'status': 'create'})
 
 
@@ -131,7 +131,7 @@ def cliente_update(request, pk):
     form = ClienteForm(request.POST or None, instance=object)
     if form.is_valid():
         form.save()
-        return redirect('cliente_list')
+        return redirect('clientes:cliente_list')
     return render(request, template_name, {'form': form, 'fk': pk})
 
 
@@ -140,7 +140,7 @@ def cliente_delete(request, pk):
     object = get_object_or_404(Cliente, pk=pk)
     if request.method == 'POST':
         object.delete()
-        return redirect('cliente_list')
+        return redirect('clientes:cliente_list')
     return render(request, template_name, {'object': object})
 
 
@@ -165,7 +165,7 @@ def contato_create(request):
     form = ContatoForm(request.POST or None)
     if form.is_valid():
         contato = form.save()
-        return redirect(reverse('contato_list', args=(contato.cliente.pk,)))
+        return redirect(reverse('clientes:contato_list', args=(contato.cliente.pk,)))
     return render(request, template_name, {'form': form})
 
 
@@ -175,7 +175,7 @@ def contato_update(request, pk):
     form = ContatoForm(request.POST or None, instance=object)
     if form.is_valid():
         contato = form.save()
-        return redirect(reverse('contato_list', args=(contato.cliente.pk,)))
+        return redirect(reverse('clientes:contato_list', args=(contato.cliente.pk,)))
     return render(request, template_name, {'form': form})
 
 
@@ -185,7 +185,7 @@ def contato_delete(request, pk):
     cliente_id = object.cliente.pk
     if request.method == 'POST':
         object.delete()
-        return redirect(reverse('contato_list', args=(cliente_id,)))
+        return redirect(reverse('clientes:contato_list', args=(cliente_id,)))
     return render(request, template_name, {'object': object})
 
 
@@ -212,7 +212,7 @@ def configuracao_create(request):
         if form.is_valid():
             configuracao = form.save()
 
-            return redirect(reverse('configuracao_list', args=(configuracao.cliente.pk,)))
+            return redirect(reverse('clientes:configuracao_list', args=(configuracao.cliente.pk,)))
     else:
         form = ConfiguracaoForm()  # A empty, unbound form
 
@@ -228,7 +228,7 @@ def configuracao_update(request, pk):
         if form.is_valid():
             configuracao = form.save()
 
-        return redirect(reverse('configuracao_list', args=(configuracao.cliente.pk,)))
+        return redirect(reverse('clientes:configuracao_list', args=(configuracao.cliente.pk,)))
     else:
         form = ConfiguracaoForm(request.POST or None, instance=object)
     return render(request, template_name, {'form': form})
@@ -240,6 +240,6 @@ def configuracao_delete(request, pk):
     cliente_id = object.cliente.pk
     if request.method == 'POST':
         object.delete()
-        return redirect(reverse('configuracao_list', args=(cliente_id,)))
+        return redirect(reverse('clientes:configuracao_list', args=(cliente_id,)))
     return render(request, template_name, {'object': object})
 

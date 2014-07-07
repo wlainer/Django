@@ -2,10 +2,10 @@
 <ul>
     {% for cidade in object_list %}
     <li>{{ cidade.nome }}  :
-    <a href="{% url "cidade_edit" cidade.id %}">edit</a>
-    <a href="{% url "cidade_delete" cidade.id %}">delete</a>
+    <a href="{% url "clientes:cidade_edit" cidade.id %}">edit</a>
+    <a href="{% url "clientes:cidade_delete" cidade.id %}">delete</a>
     </li>
     {% endfor %}
 </ul>
 
-<a href="{% url "cidade_new" %}">New</a>
+<a href="{% url "clientes:cidade_new" %}">New</a>
