@@ -1,0 +1,11 @@
+extends 'base.jade'
+
+block content
+    h1 Clientes
+    ul
+        each cliente in object_list
+            li  #{cliente.nome} #{''}
+                a(href="{% url 'clientes:cliente_edit' cliente.id %}") edit #{''}
+                a(href="{% url 'clientes:cliente_delete' cliente.id %}") delete
+
+    a(href="{% url 'clientes:cliente_new' %}") new

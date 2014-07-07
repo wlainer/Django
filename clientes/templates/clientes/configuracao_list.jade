@@ -1,0 +1,12 @@
+extends base.jade
+
+block content
+    h1 Configuração
+    ul
+        each configuracao in object_list
+            li
+                #{configuracao.servidor}:#{configuracao.porta}
+                a(href="{% url 'clientes:configuracao_edit' configuracao.id %}") edit #{' '}
+                a(href="{% url 'clientes:configuracao_delete' configuracao.id %}") delete #{' '}
+
+    a(href="{% url 'clientes:configuracao_new' %}") New

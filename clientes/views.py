@@ -11,13 +11,13 @@ from clientes.models import UF, Cidade, Cliente, Configuracao, Contato
 # ##################
 # ## CRUD ESTADO
 # ##################
-class UFForm(ModelForm):
+class UFForm(forms.BetterModelForm):
     class Meta:
         model = UF
 
 
 def uf_list(request):
-    template_name = 'clientes/uf_list.html'
+    template_name = 'clientes/uf_list.jade'
     objects = UF.objects.all()
     data = {}
     data['object_list'] = objects
@@ -25,7 +25,7 @@ def uf_list(request):
 
 
 def uf_create(request):
-    template_name = 'clientes/uf_form.html'
+    template_name = 'clientes/form.jade'
     form = UFForm(request.POST or None)
     if form.is_valid():
         form.save()
@@ -34,7 +34,7 @@ def uf_create(request):
 
 
 def uf_update(request, pk):
-    template_name = 'clientes/uf_form.html'
+    template_name = 'clientes/form.jade'
     object = get_object_or_404(UF, pk=pk)
     form = UFForm(request.POST or None, instance=object)
     if form.is_valid():
@@ -44,7 +44,7 @@ def uf_update(request, pk):
 
 
 def uf_delete(request, pk):
-    template_name = 'clientes/uf_confirm_delete.html'
+    template_name = 'clientes/confirm_delete.jade'
     object = get_object_or_404(UF, pk=pk)
     if request.method == 'POST':
         object.delete()
@@ -55,13 +55,13 @@ def uf_delete(request, pk):
 ###################
 ### CRUD CIDADE
 ###################    
-class CidadeForm(ModelForm):
+class CidadeForm(forms.BetterModelForm):
     class Meta:
         model = Cidade
 
 
 def cidade_list(request):
-    template_name = 'clientes/cidade_list.html'
+    template_name = 'clientes/cidade_list.jade'
     objects = Cidade.objects.all()
     data = {}
     data['object_list'] = objects
@@ -69,7 +69,7 @@ def cidade_list(request):
 
 
 def cidade_create(request):
-    template_name = 'clientes/cidade_form.html'
+    template_name = 'clientes/form.jade'
     form = CidadeForm(request.POST or None)
     if form.is_valid():
         form.save()
@@ -78,7 +78,7 @@ def cidade_create(request):
 
 
 def cidade_update(request, pk):
-    template_name = 'clientes/cidade_form.html'
+    template_name = 'clientes/form.jade'
     object = get_object_or_404(Cidade, pk=pk)
     form = CidadeForm(request.POST or None, instance=object)
     if form.is_valid():
@@ -88,7 +88,7 @@ def cidade_update(request, pk):
 
 
 def cidade_delete(request, pk):
-    template_name = 'clientes/cidade_confirm_delete.html'
+    template_name = 'clientes/confirm_delete.jade'
     object = get_object_or_404(Cidade, pk=pk)
     if request.method == 'POST':
         object.delete()
@@ -109,7 +109,7 @@ class ClienteForm(forms.BetterModelForm):
 
 
 def cliente_list(request):
-    template_name = 'clientes/cliente_list.html'
+    template_name = 'clientes/cliente_list.jade'
     objects = Cliente.objects.all()
     data = {}
     data['object_list'] = objects
@@ -117,7 +117,7 @@ def cliente_list(request):
 
 
 def cliente_create(request):
-    template_name = 'clientes/cliente_form.html'
+    template_name = 'clientes/cliente_form.jade'
     form = ClienteForm(request.POST or None)
     if form.is_valid():
         form.save()
@@ -126,7 +126,7 @@ def cliente_create(request):
 
 
 def cliente_update(request, pk):
-    template_name = 'clientes/cliente_form.html'
+    template_name = 'clientes/cliente_form.jade'
     object = get_object_or_404(Cliente, pk=pk)
     form = ClienteForm(request.POST or None, instance=object)
     if form.is_valid():
@@ -136,7 +136,7 @@ def cliente_update(request, pk):
 
 
 def cliente_delete(request, pk):
-    template_name = 'clientes/cliente_confirm_delete.html'
+    template_name = 'clientes/confirm_delete.jade'
     object = get_object_or_404(Cliente, pk=pk)
     if request.method == 'POST':
         object.delete()
@@ -147,13 +147,13 @@ def cliente_delete(request, pk):
 ###################
 ### CRUD CONTATOS
 ###################
-class ContatoForm(ModelForm):
+class ContatoForm(forms.BetterModelForm):
     class Meta:
         model = Contato
 
 
 def contato_list(request, fk):
-    template_name = 'clientes/contato_list.html'
+    template_name = 'clientes/contato_list.jade'
     objects = Contato.objects.filter(cliente__id=fk)
     data = {}
     data['object_list'] = objects
@@ -161,7 +161,7 @@ def contato_list(request, fk):
 
 
 def contato_create(request):
-    template_name = 'clientes/contato_form.html'
+    template_name = 'clientes/form.jade'
     form = ContatoForm(request.POST or None)
     if form.is_valid():
         contato = form.save()
@@ -170,7 +170,7 @@ def contato_create(request):
 
 
 def contato_update(request, pk):
-    template_name = 'clientes/contato_form.html'
+    template_name = 'clientes/form.jade'
     object = get_object_or_404(Contato, pk=pk)
     form = ContatoForm(request.POST or None, instance=object)
     if form.is_valid():
@@ -180,7 +180,7 @@ def contato_update(request, pk):
 
 
 def contato_delete(request, pk):
-    template_name = 'clientes/contato_confirm_delete.html'
+    template_name = 'clientes/confirm_delete.jade'
     object = get_object_or_404(Contato, pk=pk)
     cliente_id = object.cliente.pk
     if request.method == 'POST':
@@ -192,13 +192,13 @@ def contato_delete(request, pk):
 ###################
 ### CRUD CONFIGURACAO
 ###################    
-class ConfiguracaoForm(ModelForm):
+class ConfiguracaoForm(forms.BetterModelForm):
     class Meta:
         model = Configuracao
 
 
 def configuracao_list(request, fk):
-    template_name = 'clientes/configuracao_list.html'
+    template_name = 'clientes/configuracao_list.jade'
     objects = Configuracao.objects.filter(cliente__id=fk)
     data = {}
     data['object_list'] = objects
@@ -206,7 +206,7 @@ def configuracao_list(request, fk):
 
 
 def configuracao_create(request):
-    template_name = 'clientes/configuracao_form.html'
+    template_name = 'clientes/form_fileupload.jade'
     if request.method == 'POST':
         form = ConfiguracaoForm(request.POST, request.FILES)
         if form.is_valid():
@@ -221,7 +221,7 @@ def configuracao_create(request):
 
 
 def configuracao_update(request, pk):
-    template_name = 'clientes/configuracao_form.html'
+    template_name = 'clientes/form_fileupload.jade'
     object = get_object_or_404(Configuracao, pk=pk)
     if request.method == 'POST':
         form = ConfiguracaoForm(request.POST, request.FILES, instance=object)
@@ -235,7 +235,7 @@ def configuracao_update(request, pk):
 
 
 def configuracao_delete(request, pk):
-    template_name = 'clientes/configuracao_confirm_delete.html'
+    template_name = 'clientes/confirm_delete.jade'
     object = get_object_or_404(Configuracao, pk=pk)
     cliente_id = object.cliente.pk
     if request.method == 'POST':

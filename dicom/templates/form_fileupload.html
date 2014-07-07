@@ -1,4 +1,4 @@
-<form method="POST">{% csrf_token %}
+<form method="POST" enctype="multipart/form-data">{% csrf_token %}
    {% if form.non_field_errors %}{{ form.non_field_errors }}{% endif %}  
    {% for fieldset in form.fieldsets %}  
      <fieldset class="{{ fieldset.classes }}">  

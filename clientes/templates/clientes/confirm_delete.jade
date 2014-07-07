@@ -1,0 +1,7 @@
+extends base.jade
+
+block content
+    form(method="post")
+        {% csrf_token %}
+        p Tem certeza que deseja deletar "#{object}"?
+        input(type="submit" value="Enviar")

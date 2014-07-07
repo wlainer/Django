@@ -1,0 +1,8 @@
+extends base.jade
+
+block content
+    include form.html
+
+    if status != 'create'
+        a(href="{% url 'clientes:configuracao_list' fk %}") Configuracao #{' '}
+        a(href="{% url 'clientes:contato_list' fk %}") Contato

@@ -1,0 +1,12 @@
+extends base.jade
+
+block content
+    h1 Cidades
+    ul
+        each cidade in object_list
+            li
+                #{cidade.nome}
+                a(href="{% url 'clientes:cidade_edit' cidade.id %}") edit #{' '}
+                a(href="{% url 'clientes:cidade_delete' cidade.id %}") delete #{' '}
+
+    a(href="{% url 'clientes:cidade_new' %}") New
