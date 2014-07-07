@@ -5,6 +5,7 @@ db.sqlite
 dicom/media
 dicom/static
 *.ini
+.idea/*
 
 bower_components
 node_modules
