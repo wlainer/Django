@@ -1,11 +1,26 @@
 extends 'base.jade'
 
 block content
-    h1 Clientes
-    ul
-        each cliente in object_list
-            li  #{cliente.nome} #{''}
-                a(href="{% url 'clientes:cliente_edit' cliente.id %}") edit #{''}
-                a(href="{% url 'clientes:cliente_delete' cliente.id %}") delete
+    div#content
+    ul#tabs.nav.nav-tabs(data-tabs='tabs')
+        li.active
+            a(href='#red', data-toggle='tab') Clientes
+        li
+            a(href='#orange', data-toggle='tab') Configuração
+        li
+            a(href='#yellow', data-toggle='tab') Contato
+    div#my-tab-content.tab-content
+        div#red.tab-pane.active
+            ul
+            each cliente in object_list
+                li  #{cliente.nome} #{''}
+                    a(href="{% url 'clientes:cliente_edit' cliente.id %}") edit #{''}
+                    a(href="{% url 'clientes:cliente_delete' cliente.id %}") delete
+            a(href="{% url 'clientes:cliente_new' %}") new
+        div#orange.tab-pane
+            h1 Orange
+            p orange orange orange orange orange
+        div#yellow.tab-pane
+            h1 Yellow
+            p yellow yellow yellow yellow yellow
 
-    a(href="{% url 'clientes:cliente_new' %}") new
