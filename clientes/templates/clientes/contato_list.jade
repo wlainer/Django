@@ -2,11 +2,18 @@ extends base.jade
 
 block content
     h1 Contato
-    ul
-        each contato in object_list
-            li
-                #{contato.nome}
-                a(href="{% url 'clientes:contato_edit' contato.id %}") edit #{' '}
-                a(href="{% url 'clientes:contato_delete' contato.id %}") delete #{' '}
+    table
+        thead
+            td Nome
+            td Editar
+            td Exluir
+        tbody
+            tr
+                each contato in object_list
+                    td #{contato.nome}
+                    td 
+                        a(href="{% url 'clientes:contato_edit' contato.id %}") edit
+                    td 
+                        a(href="{% url 'clientes:contato_delete' contato.id %}") delete
 
-    a(href="{% url 'clientes:contato_new' %}") New
+    a(href="{% url 'clientes:contato_new' id %}") New

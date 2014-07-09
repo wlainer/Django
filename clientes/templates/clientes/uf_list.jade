@@ -2,12 +2,19 @@ extends base.jade
 
 block content
     h1 Unidade Federativa
-    ul
-        each uf in object_list
-            li
-                #{uf.nome}
-                a(href="{% url 'clientes:uf_edit' uf.id %}") edit #{' '}
-                a(href="{% url 'clientes:uf_delete' uf.id %}") delete #{' '}
+    table
+        thead
+            td Nome
+            td Editar
+            td Excluir
+        tbody
+            each uf in object_list
+            tr
+                td #{uf.nome}
+                td 
+                    a(href="{% url 'clientes:uf_edit' uf.id %}") edit #{' '}
+                td 
+                    a(href="{% url 'clientes:uf_delete' uf.id %}") delete #{' '}
 
     a(href="{% url 'clientes:uf_new' %}") New
 

@@ -1,113 +1,15 @@
 # Create your views here.
 from django.core.urlresolvers import reverse
 
-from django.forms import ModelForm
 from django.shortcuts import render, redirect, get_object_or_404
-from form_utils import forms
 
 from clientes.models import UF, Cidade, Cliente, Configuracao, Contato
-
-
-# ##################
-# ## CRUD ESTADO
-# ##################
-class UFForm(forms.BetterModelForm):
-    class Meta:
-        model = UF
-
-
-def uf_list(request):
-    template_name = 'clientes/uf_list.jade'
-    objects = UF.objects.all()
-    data = {}
-    data['object_list'] = objects
-    return render(request, template_name, data)
-
-
-def uf_create(request):
-    template_name = 'clientes/form.jade'
-    form = UFForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        return redirect('clientes:uf_list')
-    return render(request, template_name, {'form': form})
-
-
-def uf_update(request, pk):
-    template_name = 'clientes/form.jade'
-    object = get_object_or_404(UF, pk=pk)
-    form = UFForm(request.POST or None, instance=object)
-    if form.is_valid():
-        form.save()
-        return redirect('clientes:uf_list')
-    return render(request, template_name, {'form': form})
-
-
-def uf_delete(request, pk):
-    template_name = 'clientes/confirm_delete.jade'
-    object = get_object_or_404(UF, pk=pk)
-    if request.method == 'POST':
-        object.delete()
-        return redirect('clientes:uf_list')
-    return render(request, template_name, {'object': object})
-
-
-###################
-### CRUD CIDADE
-###################    
-class CidadeForm(forms.BetterModelForm):
-    class Meta:
-        model = Cidade
-
-
-def cidade_list(request):
-    template_name = 'clientes/cidade_list.jade'
-    objects = Cidade.objects.all()
-    data = {}
-    data['object_list'] = objects
-    return render(request, template_name, data)
-
-
-def cidade_create(request):
-    template_name = 'clientes/form.jade'
-    form = CidadeForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        return redirect('clientes:cidade_list')
-    return render(request, template_name, {'form': form})
-
-
-def cidade_update(request, pk):
-    template_name = 'clientes/form.jade'
-    object = get_object_or_404(Cidade, pk=pk)
-    form = CidadeForm(request.POST or None, instance=object)
-    if form.is_valid():
-        form.save()
-        return redirect('clientes:cidade_list')
-    return render(request, template_name, {'form': form})
-
-
-def cidade_delete(request, pk):
-    template_name = 'clientes/confirm_delete.jade'
-    object = get_object_or_404(Cidade, pk=pk)
-    if request.method == 'POST':
-        object.delete()
-        return redirect('clientes:cidade_list')
-    return render(request, template_name, {'object': object})
+from clientes.forms import CidadeForm, ClienteForm, ContatoForm, UFForm, ConfiguracaoForm
 
 
 ###################
 ### CRUD CLIENTE
 ###################    
-class ClienteForm(forms.BetterModelForm):
-    class Meta:
-        model = Cliente
-        fieldsets = [('Dados pessoais', {'fields': ['nome', 'telefone', 'cidade', 'email', 'obs', ],
-                  #'description': 'Information',
-                  'classes': ['Personal data']
-        }),]
-
-
 def cliente_list(request):
     template_name = 'clientes/cliente_list.jade'
     objects = Cliente.objects.all()
@@ -147,24 +49,22 @@ def cliente_delete(request, pk):
 ###################
 ### CRUD CONTATOS
 ###################
-class ContatoForm(forms.BetterModelForm):
-    class Meta:
-        model = Contato
-
-
-def contato_list(request, fk):
+def contato_list(request, pk):
     template_name = 'clientes/contato_list.jade'
-    objects = Contato.objects.filter(cliente__id=fk)
+    objects = Contato.objects.filter(cliente__id=pk)
     data = {}
     data['object_list'] = objects
+    data['id'] = pk
     return render(request, template_name, data)
 
 
-def contato_create(request):
+def contato_create(request, pk):
     template_name = 'clientes/form.jade'
     form = ContatoForm(request.POST or None)
     if form.is_valid():
-        contato = form.save()
+        contato = form.save(commit = False)
+        contato.cliente = Cliente.objects.get(pk =pk)
+        contato.save()
         return redirect(reverse('clientes:contato_list', args=(contato.cliente.pk,)))
     return render(request, template_name, {'form': form})
 
@@ -192,25 +92,23 @@ def contato_delete(request, pk):
 ###################
 ### CRUD CONFIGURACAO
 ###################    
-class ConfiguracaoForm(forms.BetterModelForm):
-    class Meta:
-        model = Configuracao
-
-
-def configuracao_list(request, fk):
+def configuracao_list(request, pk):
     template_name = 'clientes/configuracao_list.jade'
-    objects = Configuracao.objects.filter(cliente__id=fk)
+    objects = Configuracao.objects.filter(cliente__id=pk)
     data = {}
     data['object_list'] = objects
+    data['id'] = pk
     return render(request, template_name, data)
 
 
-def configuracao_create(request):
+def configuracao_create(request, pk):
     template_name = 'clientes/form_fileupload.jade'
     if request.method == 'POST':
         form = ConfiguracaoForm(request.POST, request.FILES)
         if form.is_valid():
-            configuracao = form.save()
+            configuracao = form.save(commit = False)
+            configuracao.cliente = Cliente.objects.get(pk = pk)
+            configuracao.save()
 
             return redirect(reverse('clientes:configuracao_list', args=(configuracao.cliente.pk,)))
     else:
@@ -243,3 +141,80 @@ def configuracao_delete(request, pk):
         return redirect(reverse('clientes:configuracao_list', args=(cliente_id,)))
     return render(request, template_name, {'object': object})
 
+
+# ##################
+# ## CRUD ESTADO
+# ##################
+def uf_list(request):
+    template_name = 'clientes/uf_list.jade'
+    objects = UF.objects.all()
+    data = {}
+    data['object_list'] = objects
+    return render(request, template_name, data)
+
+
+def uf_create(request):
+    template_name = 'clientes/form.jade'
+    form = UFForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('clientes:uf_list')
+    return render(request, template_name, {'form': form})
+
+
+def uf_update(request, pk):
+    template_name = 'clientes/form.jade'
+    object = get_object_or_404(UF, pk=pk)
+    form = UFForm(request.POST or None, instance=object)
+    if form.is_valid():
+        form.save()
+        return redirect('clientes:uf_list')
+    return render(request, template_name, {'form': form})
+
+
+def uf_delete(request, pk):
+    template_name = 'clientes/confirm_delete.jade'
+    object = get_object_or_404(UF, pk=pk)
+    if request.method == 'POST':
+        object.delete()
+        return redirect('clientes:uf_list')
+    return render(request, template_name, {'object': object})
+
+
+###################
+### CRUD CIDADE
+###################    
+def cidade_list(request):
+    template_name = 'clientes/cidade_list.jade'
+    objects = Cidade.objects.all()
+    data = {}
+    data['object_list'] = objects
+    return render(request, template_name, data)
+
+
+def cidade_create(request):
+    template_name = 'clientes/form.jade'
+    form = CidadeForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('clientes:cidade_list')
+    return render(request, template_name, {'form': form})
+
+
+def cidade_update(request, pk):
+    template_name = 'clientes/form.jade'
+    object = get_object_or_404(Cidade, pk=pk)
+    form = CidadeForm(request.POST or None, instance=object)
+    if form.is_valid():
+        form.save()
+        return redirect('clientes:cidade_list')
+    return render(request, template_name, {'form': form})
+
+
+def cidade_delete(request, pk):
+    template_name = 'clientes/confirm_delete.jade'
+    object = get_object_or_404(Cidade, pk=pk)
+    if request.method == 'POST':
+        object.delete()
+        return redirect('clientes:cidade_list')
+    return render(request, template_name, {'object': object})
