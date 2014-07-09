@@ -1,7 +1,7 @@
 <table>
 	<form method="POST" enctype="multipart/form-data">
   		{% csrf_token %}
-  		{{ form.as_table}}
+  		{{ form }}
  	 	<input type="submit" value="Enviar!" class="button">  
  	</form>  
 </table>

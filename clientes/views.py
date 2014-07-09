@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from clientes.models import UF, Cidade, Cliente, Configuracao, Contato
-from clientes.forms import CidadeForm, ClienteForm, ContatoForm, UFForm, ConfiguracaoForm
+from clientes.forms import CidadeForm, ClienteForm, ContatoForm, UFForm, ConfiguracaoForm, PesquisaForm
 
 
 ###################
@@ -13,8 +13,16 @@ from clientes.forms import CidadeForm, ClienteForm, ContatoForm, UFForm, Configu
 def cliente_list(request):
     template_name = 'clientes/cliente_list.jade'
     objects = Cliente.objects.all()
+    if request.method == "POST":
+        form = PesquisaForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            filtro = data['pesquisar']
+            objects = Cliente.objects.filter(nome__contains=filtro)
+    form = PesquisaForm()
     data = {}
     data['object_list'] = objects
+    data['form'] = form
     return render(request, template_name, data)
 
 

@@ -3,7 +3,7 @@ db.sqlite
 *.pot
 *.pyc
 dicom/media
-dicom/static
+dicom/static/bower_components
 *.ini
 .idea/*
 

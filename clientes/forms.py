@@ -23,3 +23,6 @@ class ConfiguracaoForm(forms.ModelForm):
     class Meta:
         model = Configuracao
         exclude = ['cliente']
+
+class PesquisaForm(forms.Form):
+    pesquisar = forms.CharField(max_length=100)
