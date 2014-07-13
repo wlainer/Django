@@ -1,7 +1,40 @@
 extends base.jade
 
+{% load crispy_forms_tags %}
+
+block script
+    script(type="text/javascript")
+        $(document).ready(function() {
+            if ('#{status}' === 'create') {
+                $("#liContato").addClass("disabled");
+                $("#aContato").removeAttr("data-toggle");
+
+                $("#liConfiguracao").addClass("disabled");
+                $("#aConfiguracao").removeAttr("data-toggle");
+            }
+        });
+
 block content
-    include form.html
+
+    ul.nav.nav-tabs(role='tablist')
+        li#liCliente.active
+            a#aCliente(data-toggle="tab" href='#cliente') Cliente
+         li#liContato
+            a#aContato(data-toggle="tab" href='#contato') Contato
+         li#liConfiguracao
+            a#aConfiguracao(data-toggle="tab" href='#configuracao') Configuração
+
+    .tab-content
+        #cliente.tab-pane.fade.in.active
+            {% crispy form %}
+
+        #contato.tab-pane
+            p Contato
+
+        #configuracao.tab-pane.fade
+            p configuracao
+
+
 
     if status != 'create'
         a(href="{% url 'clientes:configuracao_list' fk %}") Configuracao #{' '}

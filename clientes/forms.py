@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+
+from crispy_forms.bootstrap import FormActions
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Submit
 from django import forms
 
 from clientes.models import Cidade, Cliente, Configuracao, Contato, UF
@@ -11,6 +16,11 @@ class CidadeForm(forms.ModelForm):
         model = Cidade
 
 class ClienteForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ClienteForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.layout.append(Submit('save', 'Enviar'))
+        self.helper.layout.append(Submit('cancel', 'Cancelar'))
     class Meta:
         model = Cliente
 
@@ -25,4 +35,8 @@ class ConfiguracaoForm(forms.ModelForm):
         exclude = ['cliente']
 
 class PesquisaForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super(PesquisaForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.layout.append(Submit('save', 'Pesquisar'))
     pesquisar = forms.CharField(max_length=100)

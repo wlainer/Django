@@ -1,24 +1,45 @@
 extends 'base.jade'
 
-block content
-    form(method="post")
-        {% csrf_token %}
-        {{ form }}
-        input(type="submit" value="pesquisar")
+{% load crispy_forms_tags %}
 
-    h1 Clientes
-    table
-        thead
-            td Nome
-            td Editar
-            td Exluir
-        tbody
-            each cliente in object_list
-                tr
-                    td #{cliente.nome}        
-                    td 
-                        a(href="{% url 'clientes:cliente_edit' cliente.id %}") edit 
-                    td 
-                        a(href="{% url 'clientes:cliente_delete' cliente.id %}") delete
-    
-    a(href="{% url 'clientes:cliente_new' %}") new
+block script
+    script(type="text/javascript")
+        $(document).ready(function() {
+            $("#new").click(function() {
+                window.location = '{% url "clientes:cliente_new" %}';
+            });
+        });
+
+block content
+    .barra-botoes
+        .btn-group
+            button.btn-sm#new(type="button" class="btn btn-default") Novo
+
+
+    .panel.panel-info
+        .panel-heading
+            h2.panel-title Pesquisar
+        .panel-body
+            {% crispy form %}
+
+    .panel.panel-info
+       .panel-heading
+            h2.panel-title Clientes
+        .panel-body
+            table.table
+                thead
+                    td Nome
+                    td Editar
+                    td Exluir
+                tbody
+                    each cliente in object_list
+                        tr
+                            td #{cliente.nome}
+                            td
+                                a.glyphicon.glyphicon-edit(href="{% url 'clientes:cliente_edit' cliente.id %}") #{' '}Editar
+                            td
+                                a.glyphicon.glyphicon-trash(href="{% url 'clientes:cliente_delete' cliente.id %}") #{' '}Apagar
+
+    .mascara
+
+    .window

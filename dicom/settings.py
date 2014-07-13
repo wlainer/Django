@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # Django settings for dicom project.
 
 import os
@@ -35,11 +37,11 @@ ALLOWED_HOSTS = []
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/Sao_Paulo'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-BR'
 
 SITE_ID = 1
 
@@ -125,6 +127,8 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_DIR, 'templates/'),
 )
 
+CRISPY_TEMPLATE_PACK = 'bootstrap'
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -134,7 +138,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'clientes',
     'south',
-    'form_utils',
+    'crispy_forms',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
