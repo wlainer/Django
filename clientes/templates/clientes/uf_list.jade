@@ -9,12 +9,12 @@ block content
             td Excluir
         tbody
             each uf in object_list
-            tr
-                td #{uf.nome}
-                td 
-                    a(href="{% url 'clientes:uf_edit' uf.id %}") edit #{' '}
-                td 
-                    a(href="{% url 'clientes:uf_delete' uf.id %}") delete #{' '}
+                tr
+                    td #{uf.nome}
+                    td
+                        a(href="{% url 'clientes:uf_edit' uf.id %}") edit #{' '}
+                    td
+                        a(href="{% url 'clientes:uf_delete' uf.id %}") delete #{' '}
 
     a(href="{% url 'clientes:uf_new' %}") New
 

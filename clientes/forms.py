@@ -4,6 +4,7 @@ from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit
 from django import forms
+from django.core.urlresolvers import reverse
 
 from clientes.models import Cidade, Cliente, Configuracao, Contato, UF
 
@@ -30,7 +31,13 @@ class ContatoForm(forms.ModelForm):
         exclude = ['cliente']                     
 
 class ConfiguracaoForm(forms.ModelForm):
-    class Meta:
+     def __init__(self, *args, **kwargs):
+        super(ConfiguracaoForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_action = reverse('clientes:configuracao_new' , args=(1,))
+        self.helper.layout.append(Submit('save', 'Enviar'))
+        self.helper.layout.append(Submit('cancel', 'Cancelar'))
+     class Meta:
         model = Configuracao
         exclude = ['cliente']
 

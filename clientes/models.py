@@ -40,6 +40,7 @@ class Contato(models.Model):
 
 
 class Configuracao(models.Model):
+    descricao = models.CharField(max_length=255)
     cliente = models.ForeignKey(Cliente)
     servidor = models.CharField(max_length=255, null=True, blank=True)
     porta = models.IntegerField(null=True, blank=True)

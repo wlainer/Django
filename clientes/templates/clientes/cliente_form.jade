@@ -5,6 +5,11 @@ extends base.jade
 block script
     script(type="text/javascript")
         $(document).ready(function() {
+            $("#new-configuracao").click(function () {
+                $("#myModal").modal('show');
+                $('.form-contato').hide();
+            });
+
             if ('#{status}' === 'create') {
                 $("#liContato").addClass("disabled");
                 $("#aContato").removeAttr("data-toggle");
@@ -13,6 +18,12 @@ block script
                 $("#aConfiguracao").removeAttr("data-toggle");
             }
         });
+block stylesheets
+    style
+        .tabs {
+            padding: 15px 50px;
+        }
+
 
 block content
 
@@ -26,16 +37,57 @@ block content
 
     .tab-content
         #cliente.tab-pane.fade.in.active
-            {% crispy form %}
+            .tabs
+                {% crispy form_cliente %}
 
         #contato.tab-pane
-            p Contato
+            .tabs
+                if status != 'create'
+                    table.table
+                        thead
+                            td Nome
+                            td Editar
+                            td Exluir
+                        tbody
+                            tr
+                                each contato in contatos
+                                    td #{contato.nome}
+                                    td
+                                        a.glyphicon.glyphicon-edit(href="{% url 'clientes:contato_edit' contato.id %}") Editar
+                                    td
+                                        a.glyphicon.glyphicon-trash(href="{% url 'clientes:contato_delete' contato.id %}") Apagar
 
         #configuracao.tab-pane.fade
-            p configuracao
-
-
+            .tabs
+                if status != 'create'
+                    .barra-botoes
+                        .btn-group
+                            button.btn-sm#new-configuracao(type="button" class="btn btn-default") Novo
+                    table.table
+                        thead
+                            td Nome
+                            td Editar
+                            td Excluir
+                        tbody
+                            each configuracao in configuracoes
+                                tr
+                                    td #{configuracao.servidor}:#{configuracao.porta}
+                                    td
+                                        a.glyphicon.glyphicon-edit(href="{% url 'clientes:configuracao_edit' configuracao.id %}") Editar
+                                    td
+                                        a.glyphicon.glyphicon-trash(href="{% url 'clientes:configuracao_delete' configuracao.id %}") Apagar
 
     if status != 'create'
-        a(href="{% url 'clientes:configuracao_list' fk %}") Configuracao #{' '}
-        a(href="{% url 'clientes:contato_list' fk %}") Contato
+        #myModal.modal.fade
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                h4.modal-title Cadastro
+              .modal-body
+                .form-configuracao
+                    {% crispy form_configuracao %}
+                .form-contato
+                    {% crispy form_contato %}
+
+

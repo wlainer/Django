@@ -11,35 +11,30 @@ block script
         });
 
 block content
-    .barra-botoes
-        .btn-group
-            button.btn-sm#new(type="button" class="btn btn-default") Novo
-
-
     .panel.panel-info
         .panel-heading
             h2.panel-title Pesquisar
         .panel-body
-            {% crispy form %}
+            {% crispy form_pesquisar %}
 
     .panel.panel-info
        .panel-heading
             h2.panel-title Clientes
         .panel-body
+            .barra-botoes
+                .btn-group
+                    button.btn-sm#new(type="button" class="btn btn-default") Novo
+            hr
             table.table
                 thead
                     td Nome
                     td Editar
                     td Exluir
                 tbody
-                    each cliente in object_list
+                    each cliente in clientes
                         tr
                             td #{cliente.nome}
                             td
                                 a.glyphicon.glyphicon-edit(href="{% url 'clientes:cliente_edit' cliente.id %}") #{' '}Editar
                             td
                                 a.glyphicon.glyphicon-trash(href="{% url 'clientes:cliente_delete' cliente.id %}") #{' '}Apagar
-
-    .mascara
-
-    .window

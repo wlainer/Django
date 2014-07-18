@@ -14,37 +14,49 @@ from clientes.forms import CidadeForm, ClienteForm, ContatoForm, UFForm, Configu
 ###################    
 def cliente_list(request):
     template_name = 'clientes/cliente_list.jade'
-    objects = Cliente.objects.all()
+    clientes = Cliente.objects.all()
     if request.method == "POST":
-        form = PesquisaForm(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
+        form_pesquisar = PesquisaForm(request.POST)
+        if form_pesquisar.is_valid():
+            data = form_pesquisar.cleaned_data
             filtro = data['pesquisar']
-            objects = Cliente.objects.filter(nome__contains=filtro)
-    form = PesquisaForm()
+            clientes = Cliente.objects.filter(nome__contains=filtro)
+    form_pesquisar = PesquisaForm()
     data = {}
-    data['object_list'] = objects
-    data['form'] = form
+    data['clientes'] = clientes
+    data['form_pesquisar'] = form_pesquisar
     return render(request, template_name, data)
 
 
 def cliente_create(request):
     template_name = 'clientes/cliente_form.jade'
-    form = ClienteForm(request.POST or None)
-    if form.is_valid():
-        form.save()
+    form_cliente = ClienteForm(request.POST or None)
+    if form_cliente.is_valid():
+        form_cliente.save()
         return redirect('clientes:cliente_list')
-    return render(request, template_name, {'form': form, 'status': 'create'})
+    return render(request, template_name, {'form_cliente': form_cliente, 'status': 'create'})
 
 
 def cliente_update(request, pk):
     template_name = 'clientes/cliente_form.jade'
     object = get_object_or_404(Cliente, pk=pk)
-    form = ClienteForm(request.POST or None, instance=object)
-    if form.is_valid():
-        form.save()
+    form_cliente = ClienteForm(request.POST or None, instance=object)
+    if form_cliente.is_valid():
+        form_cliente.save()
         return redirect('clientes:cliente_list')
-    return render(request, template_name, {'form': form, 'fk': pk})
+    else:
+        contatos = Contato.objects.filter(cliente__id=pk)
+        configuracoes = Configuracao.objects.filter(cliente__id=pk)
+        form_configuracao = ConfiguracaoForm()
+        form_contato = ContatoForm()
+        data = {}
+        data['form_cliente'] = form_cliente
+        data['contatos'] = contatos
+        data['configuracoes'] = configuracoes
+        data['form_configuracao'] = form_configuracao
+        data['form_contato'] = form_contato
+        data['pk'] = pk
+        return render(request, template_name, data)
 
 
 def cliente_delete(request, pk):

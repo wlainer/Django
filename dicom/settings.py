@@ -127,7 +127,7 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_DIR, 'templates/'),
 )
 
-CRISPY_TEMPLATE_PACK = 'bootstrap'
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 INSTALLED_APPS = (
     'django.contrib.auth',

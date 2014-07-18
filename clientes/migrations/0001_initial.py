@@ -49,6 +49,7 @@ class Migration(SchemaMigration):
         # Adding model 'Configuracao'
         db.create_table(u'clientes_configuracao', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('descricao', self.gf('django.db.models.fields.CharField')(max_length=255)),
             ('cliente', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['clientes.Cliente'])),
             ('servidor', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
             ('porta', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
@@ -95,6 +96,7 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Configuracao'},
             'arquivo_config': ('django.db.models.fields.files.FileField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'cliente': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['clientes.Cliente']"}),
+            'descricao': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'endereco_web': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'porta': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
