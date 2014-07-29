@@ -1,5 +1,5 @@
 Django==1.5.1
 Markdown==2.4.1
 pyjade==2.2.0
-django-crispy-forms
 south==1.0
+djangorestframework==2.3.6

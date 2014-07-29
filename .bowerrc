@@ -1,3 +1,5 @@
 {
-    "directory": "dicom/static/bower_components"
+    "directory": "dicom/static/bower_components",
+    "https-proxy" : "http://localhost:3124",
+    "strict-ssl": false
 }
