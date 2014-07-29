@@ -27,8 +27,8 @@ class ClienteForm(forms.ModelForm):
 
 class ContatoForm(forms.ModelForm):
     class Meta:
-        model = Contato   
-        exclude = ['cliente']                     
+        model = Contato
+        exclude = ['cliente']
 
 class ConfiguracaoForm(forms.ModelForm):
      def __init__(self, *args, **kwargs):

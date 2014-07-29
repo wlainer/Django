@@ -127,8 +127,6 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_DIR, 'templates/'),
 )
 
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
-
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -138,7 +136,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'clientes',
     'south',
-    'rest_framework',
+    'tastypie',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

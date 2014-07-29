@@ -6,24 +6,22 @@ from django.conf import settings
 # from django.contrib import admin
 # admin.autodiscover()
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from clientes.api import ClienteResource
+
+cliente_resource = ClienteResource()
+
 
 urlpatterns = patterns('',
-    url('^', include('clientes.urls', namespace="clientes")),
+    #rest service cliente
+    url(r'^api/', include(cliente_resource.urls)),
 
     #static
     (r'^static/(?P<path>.*)$', 'django.views.static.serve',
          {'document_root': settings.STATIC_ROOT}),
-
     #media
     (r'^media/(?P<path>.*)$', 'django.views.static.serve',
          {'document_root': settings.MEDIA_ROOT}),
-    # Examples:
-    # url(r'^$', 'dicom.views.home', name='home'),
-    # url(r'^dicom/', include('dicom.foo.urls')),
+    #index
+    url(r'^$', 'dicom.views.home', name="home"),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
 )

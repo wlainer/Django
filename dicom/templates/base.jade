@@ -15,13 +15,11 @@ head
 body
     div(ng-view)
 
-    label Nome:
-    input(type="text", ng-model="nome", placeholder="Digite seu nome")
-    hr
-    {[{ nome }]}
-
     script(src='{% static "bower_components/angular/angular.min.js" %}')
     script(src='{% static "bower_components/angular-route/angular-route.min.js" %}')
+    script(src='{% static "bower_components/angular-resource/angular-resource.min.js" %}')
+    script(src='{% static "bower_components/angular-cookie/angular-cookie.min.js" %}')
 
     script(src='{% static "js/app/app.js" %}')
     script(src='{% static "js/app/controllers/cliente-controller.js" %}')
+    script(src='{% static "js/app/service/cliente-service.js" %}')
